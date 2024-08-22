@@ -1,0 +1,44 @@
+# create bash shell variables
+resourceGroup=rg-cks-course-environment
+location=uksouth
+vnetName=vnet-cks-course-environment
+subnetName=snet-cks-course-environment
+vnetAddressPrefix=10.0.0.0/16
+subnetAddressPrefix=10.0.0.0/24
+vmNameControlPlane=cks-control-plane
+vmNameWorker=cks-worker
+
+# create resource group
+az group create --name $resourceGroup --location $location
+
+# create vnet
+az network vnet create \
+  --name $vnetName \
+  --resource-group $resourceGroup \
+  --address-prefixes $vnetAddressPrefix \
+  --subnet-name $subnetName \
+  --subnet-prefixes $subnetAddressPrefix
+
+# create control plane node
+az vm create \
+  --name $vmNameControlPlane \
+  --resource-group $resourceGroup \
+  --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
+  --size Standard_B2s \
+  --vnet-name $vnetName \
+  --subnet $subnetName \
+  --generate-ssh-keys \
+  --output json \
+  --verbose
+
+# create worker node
+az vm create \
+  --name $vmNameWorker \
+  --resource-group $resourceGroup \
+  --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
+  --size Standard_B2s \
+  --vnet-name $vnetName \
+  --subnet $subnetName \
+  --generate-ssh-keys \
+  --output json \
+  --verbose
