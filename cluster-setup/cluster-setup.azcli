@@ -5,6 +5,7 @@ vnetName=vnet-cks-course-environment
 subnetName=snet-cks-course-environment
 vnetAddressPrefix=10.0.0.0/16
 subnetAddressPrefix=10.0.0.0/24
+nsgName=nsg-cks-course-environment
 vmNameControlPlane=cks-control-plane
 vmNameWorker=cks-worker
 
@@ -24,6 +25,7 @@ az vm create \
   --name $vmNameControlPlane \
   --resource-group $resourceGroup \
   --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
+  --nsg $nsgName \
   --size Standard_B2s \
   --vnet-name $vnetName \
   --subnet $subnetName \
@@ -36,6 +38,7 @@ az vm create \
   --name $vmNameWorker \
   --resource-group $resourceGroup \
   --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
+  --nsg $nsgName \
   --size Standard_B2s \
   --vnet-name $vnetName \
   --subnet $subnetName \
