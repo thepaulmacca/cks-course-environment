@@ -1,0 +1,8 @@
+# create bash shell variables
+resourceGroup=rg-cks-course-environment
+vmNameControlPlane=cks-control-plane
+vmNameWorker=cks-worker
+
+# start vms
+az vm start --name $vmNameControlPlane --resource-group $resourceGroup
+az vm start --name $vmNameWorker --resource-group $resourceGroup
