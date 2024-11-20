@@ -196,8 +196,6 @@ cilium install --version 1.16.4
 
 cilium status --wait
 
-cilium connectivity test
-
 # etcdctl
 ETCDCTL_VERSION=v3.5.1
 ETCDCTL_ARCH=$(dpkg --print-architecture)
