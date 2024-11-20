@@ -183,9 +183,12 @@ kubeadm init --kubernetes-version=${KUBE_VERSION} --ignore-preflight-errors=NumC
 mkdir -p ~/.kube
 sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
 
-### CNI
-kubectl apply -f https://raw.githubusercontent.com/killer-sh/cks-course-environment/master/cluster-setup/calico.yaml
+### cilium
+cilium install --version 1.16.4
 
+cilium status --wait
+
+cilium connectivity test
 
 # etcdctl
 ETCDCTL_VERSION=v3.5.1
